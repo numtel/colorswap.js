@@ -1,4 +1,4 @@
-// ColorSwap.js v1.0.0
+// ColorSwap.js v1.0.1
 // https://github.com/numtel/colorswap.js
 // ben@latenightsketches.com, MIT License
 
@@ -62,15 +62,55 @@
     return options;
   };
 
+  var calcDiff = function(a, b){
+    var cA = tinycolor(a).toHsl();
+    var cB = tinycolor(b).toHsl();
+    return {h: cA.h-cB.h,
+            s: cA.s-cB.s,
+            l: cA.l-cB.l};
+  };
+
+  var normalize = function(colorObj){
+    for(var i in colorObj){
+      if(colorObj.hasOwnProperty(i)){
+        if(colorObj[i] < 0){
+          colorObj[i] = 0;
+        };
+      };
+    };
+    return colorObj;
+  };
+
   var ColorSwap = function(options){
     // Validate options
     if(options.find === undefined || options.replace === undefined){
       throw 'find and replace colors must be specified!';
     };
+    if(options.find instanceof Array){
+      // Find multiple colors, relative shading based on first color
+      for(var i=0; i<options.find.length; i++){
+        var theseOptions = setDefaults({}, options);
+        theseOptions.find = options.find[i];
+        if(i > 0){
+          theseOptions.diff = calcDiff(options.find[i], options.find[0]);
+        };
+        ColorSwap(theseOptions);
+      };
+      return;
+    };
     var find = tinycolor(options.find);
     var replace = tinycolor(options.replace);
     if(!find.isValid() || !replace.isValid()){
       throw 'Invalid color passed!';
+    };
+
+    if(options.diff){
+      var rHsl = replace.toHsl();
+      rHsl.h += options.diff.h;
+      rHsl.s += options.diff.s;
+      rHsl.l += options.diff.l;
+      normalize(rHsl);
+      replace = tinycolor(rHsl);
     };
 
     setDefaults(options, {

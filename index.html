@@ -24,7 +24,7 @@
 
         // Perform swap
         ColorSwap({
-          find: '#428bca',
+          find: ['#428bca', '#3071a9'],
           replace: colors[cColor],
           animation: 'rgb'
         });
@@ -52,7 +52,7 @@
   &lt;script src="colorswap.js"&gt;&lt;/script&gt;
   </pre>
   <h3>Usage</h3>
-  <p>The find color is the original color. Subsequent calls to replace the color still specify the color in the original CSS. View this page's source for an example.</p>
+  <p>The <code>find</code> color is the original color. Subsequent calls to replace the color still specify the color in the original CSS. View this page's source for an example.</p>
   <pre>
   ColorSwap({
     find: '#428bca', // hex, rgb(), hsv(), hsl()
@@ -62,6 +62,7 @@
     frameDuration: 10 // optional: milliseconds per frame in animation
   });
   </pre>
+  <p>Pass an array of colors to the <code>find</code> option to replace multiple colors. The first color will be used to adjust the HSL values relative to the remaining colors, preserving shading effects.</p>
   <h3>Caveats</h3>
   <ul>
     <li>Only works with CSS rules in files from the same origin due to security restrictions.</li>
