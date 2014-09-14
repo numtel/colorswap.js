@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>colorswap.js</title>
+  <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="demo.css">
+  <script src="tinycolor.js"></script>
+  <script src="colorswap.js"></script>
+  <script>
+    window.onload = function(){
+      var change = document.getElementById('change');
+      var colors = ['#f00', '#0f0', '#00f'], cColor;
+      change.addEventListener('click', function(event){
+        event.preventDefault();
+
+        // Cycle through colors array
+        if(cColor === undefined || cColor === colors.length-1){
+          cColor = 0;
+        }else{
+          cColor++;
+        };
+
+        // Perform swap
+        ColorSwap({
+          find: '#428bca',
+          replace: colors[cColor],
+          animation: 'rgb'
+        });
+
+      }, false);
+    };
+  </script>
+</head>
+<body>
+  <a href="http://github.com/numtel/colorswap.js/" 
+     title="Fork me on Github!" class="github-corner">
+    Fork me on Github!
+  </a>
+  <h1>colorswap.js</h1>
+  <h2>Instantly replace colors on your page!</h2>
+  <div class="centered">
+    <a href="#" id="change" class="button">Change Color</a>
+  </div>
+  <p>A find/replace operation for all loaded stylesheets specialized for swapping colors globally.</p>
+  <p>Tested working on Chrome, Firefox, IE9+</p>
+  <h3>Installation</h3>
+  <p>Only dependency is <a href="http://bgrins.github.io/TinyColor/">tinycolors</a>.</p>
+  <pre>
+  &lt;script src="tinycolor.js"&gt;&lt;/script&gt;
+  &lt;script src="colorswap.js"&gt;&lt;/script&gt;
+  </pre>
+  <h3>Usage</h3>
+  <p>The find color is the original color. Subsequent calls to replace the color still specify the color in the original CSS. View this page's source for an example.</p>
+  <pre>
+  ColorSwap({
+    find: '#428bca', // hex, rgb(), hsv(), hsl()
+    replace: '#f00', // hex, rgb(), hsv(), hsl()
+    animation: 'hsl' // optional: 'none', 'rgb', 'hsv', 'hsl'
+    duration: 400 // optional: milliseconds to complete animation
+    frameDuration: 10 // optional: milliseconds per frame in animation
+  });
+  </pre>
+  <h3>Caveats</h3>
+  <ul>
+    <li>Only works with CSS rules in files from the same origin due to security restrictions.</li>
+    <li>HSL, HSV animations could use some work in between red and blue.</li>
+  </ul>
+  <h3>More Information</h3>
+  <p><a href="http://github.com/numtel/colorswap.js/">View Project on GitHub</a></p>
+</body>
+</html>
