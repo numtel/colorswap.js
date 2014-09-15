@@ -33,4 +33,5 @@ Pass an array of colors to the `find` option to replace multiple colors. The fir
 
 ### Changelog
 
+* 1.0.2: Fixed normalize function so relative colors do not go out of bounds
 * 1.0.1: Support for multiple colors

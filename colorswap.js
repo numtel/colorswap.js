@@ -1,4 +1,4 @@
-// ColorSwap.js v1.0.1
+// ColorSwap.js v1.0.2
 // https://github.com/numtel/colorswap.js
 // ben@latenightsketches.com, MIT License
 
@@ -70,11 +70,14 @@
             l: cA.l-cB.l};
   };
 
-  var normalize = function(colorObj){
+  var normalize = function(colorObj, min, max){
     for(var i in colorObj){
       if(colorObj.hasOwnProperty(i)){
-        if(colorObj[i] < 0){
-          colorObj[i] = 0;
+        if(typeof min === 'object' && colorObj[i] < min[i]){
+          colorObj[i] = min[i];
+        };
+        if(typeof max === 'object' && colorObj[i] > max[i]){
+          colorObj[i] = max[i];
         };
       };
     };
@@ -109,7 +112,7 @@
       rHsl.h += options.diff.h;
       rHsl.s += options.diff.s;
       rHsl.l += options.diff.l;
-      normalize(rHsl);
+      normalize(rHsl, 0, {h:255, s: 1, l: 1});
       replace = tinycolor(rHsl);
     };
 
