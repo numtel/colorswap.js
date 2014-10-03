@@ -11,6 +11,10 @@ Only dependency is [tinycolor](http://bgrins.github.io/TinyColor/)
     <script src="tinycolor.js"></script>
     <script src="colorswap.js"></script>
 
+Also available as a Meteor Package ([more information](https://github.com/numtel/meteor-colorswap))
+
+    meteor add numtel:colorswap
+
 ### Usage
 
 The find color is the original color. Subsequent calls to replace the color still specify the color in the original CSS. View this page's source for an example.
